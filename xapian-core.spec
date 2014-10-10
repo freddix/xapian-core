@@ -1,11 +1,11 @@
 Summary:	The Xapian Probabilistic Information Retrieval Library
 Name:		xapian-core
-Version:	1.2.17
+Version:	1.2.18
 Release:	1
 License:	GPL
 Group:		Applications/Databases
 Source0:	http://www.oligarchy.co.uk/xapian/%{version}/%{name}-%{version}.tar.xz
-# Source0-md5:	493117bf45e5471e86b4fc5d6d8069dc
+# Source0-md5:	0ccbf68ade12e7b1ead10c57f4447899
 URL:		http://www.xapian.org/
 BuildRequires:	libstdc++-devel
 BuildRequires:	zlib-devel
@@ -39,6 +39,7 @@ functionality.
 Summary:	Files needed for building packages which use Xapian
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
+Requires:	libstdc++-devel
 Requires:	zlib-devel
 
 %description devel
@@ -67,6 +68,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -C docs install \
 	docdir=%{_docdir}/%{name}-apidocs-%{version}	\
 	DESTDIR=$RPM_BUILD_ROOT
+
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %post	libs -p /usr/sbin/ldconfig
 %postun	libs -p /usr/sbin/ldconfig
@@ -117,7 +120,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/xapian
 %{_includedir}/xapian.h
 %{_libdir}/libxapian.so
-%{_libdir}/libxapian.la
 %{_aclocaldir}/xapian.m4
 %{_datadir}/cmake/xapian
 
